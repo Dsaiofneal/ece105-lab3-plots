@@ -9,6 +9,11 @@ Usage
     python generate_plots.py
 """
 
+
+# Create a function generate_data(seed) that returns sensor_a, sensor_b,
+# and timestamps arrays with the same parameters as in the notebook.
+# Use NumPy-style docstring with Parameters and Returns sections.
+
 import numpy as np
 
 
@@ -37,6 +42,33 @@ def generate_data(seed):
 
     return sensor_a, sensor_b, timestamps
 
-# Create a function generate_data(seed) that returns sensor_a, sensor_b,
-# and timestamps arrays with the same parameters as in the notebook.
-# Use NumPy-style docstring with Parameters and Returns sections.
+
+def plot_scatter(sensor_a, sensor_b, timestamps, ax):
+    """Plot sensor readings against timestamps on the given axes.
+
+    Parameters
+    ----------
+    sensor_a : numpy.ndarray
+        Array of 200 temperature readings for Sensor A in Celsius.
+    sensor_b : numpy.ndarray
+        Array of 200 temperature readings for Sensor B in Celsius.
+    timestamps : numpy.ndarray
+        Array of 200 timestamps uniformly sampled from 0 to 10 seconds.
+    ax : matplotlib.axes.Axes
+        Axes object to modify in place.
+
+    Returns
+    -------
+    None
+        This function modifies ax in place and returns None.
+    """
+    ax.scatter(timestamps, sensor_a, s=24, alpha=0.75, color='tab:blue', label='Sensor A')
+    ax.scatter(timestamps, sensor_b, s=24, alpha=0.75, color='tab:orange', label='Sensor B')
+    ax.set_xlabel('Timestamp (s)')
+    ax.set_ylabel('Temperature (C)')
+    ax.set_title('Sensor Temperature Scatter Plot')
+    ax.legend()
+
+# Create plot_scatter(sensor_a, sensor_b, timestamps, ax) that draws
+# the scatter plot from the notebook onto the given Axes object.
+# NumPy-style docstring. Modifies ax in place, returns None.
