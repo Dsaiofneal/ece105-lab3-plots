@@ -45,4 +45,4 @@ The saved figure contains three plots:
 
 ## AI Tools Used and Disclosure
 
-Placeholder paragraph: describe any AI tools used to help write or revise this project, what they were used for, and what parts of the work were completed by you.
+I used the VSCode Sidebar, primarily to generate the code with the given intent comments and prompts. Using the AI, I noticed it made some errors while generating code, so I asked it to add/fix whatever I noticed was wrong.
