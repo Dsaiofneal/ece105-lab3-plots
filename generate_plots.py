@@ -42,6 +42,9 @@ def generate_data(seed):
 
     return sensor_a, sensor_b, timestamps
 
+# Create plot_scatter(sensor_a, sensor_b, timestamps, ax) that draws
+# the scatter plot from the notebook onto the given Axes object.
+# NumPy-style docstring. Modifies ax in place, returns None.
 
 def plot_scatter(sensor_a, sensor_b, timestamps, ax):
     """Plot sensor readings against timestamps on the given axes.
@@ -69,6 +72,30 @@ def plot_scatter(sensor_a, sensor_b, timestamps, ax):
     ax.set_title('Sensor Temperature Scatter Plot')
     ax.legend()
 
-# Create plot_scatter(sensor_a, sensor_b, timestamps, ax) that draws
-# the scatter plot from the notebook onto the given Axes object.
-# NumPy-style docstring. Modifies ax in place, returns None.
+
+def plot_histogram(sensor_a, sensor_b, ax):
+    """Plot overlaid histograms for the two sensor data sets.
+
+    Parameters
+    ----------
+    sensor_a : numpy.ndarray
+        Array of 200 temperature readings for Sensor A in Celsius.
+    sensor_b : numpy.ndarray
+        Array of 200 temperature readings for Sensor B in Celsius.
+    ax : matplotlib.axes.Axes
+        Axes object to modify in place.
+
+    Returns
+    -------
+    None
+        This function modifies ax in place and returns None.
+    """
+    ax.hist(sensor_a, bins=30, alpha=0.5, color='tab:blue', label='Sensor A')
+    ax.hist(sensor_b, bins=30, alpha=0.5, color='tab:orange', label='Sensor B')
+    ax.axvline(sensor_a.mean(), color='tab:blue', linestyle='--', linewidth=2, label='Sensor A mean')
+    ax.axvline(sensor_b.mean(), color='tab:orange', linestyle='--', linewidth=2, label='Sensor B mean')
+    ax.set_xlabel('Temperature (C)')
+    ax.set_ylabel('Count')
+    ax.set_title('Histogram of Sensor Temperatures')
+    ax.legend()
+
