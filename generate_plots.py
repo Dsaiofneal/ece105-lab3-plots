@@ -130,13 +130,13 @@ def plot_boxplot(sensor_a, sensor_b, ax):
     ax.set_title('Sensor Temperature Box Plot')
     ax.legend()
 
-# Create main() that generates data, creates a 1x3 subplot figure,
-# calls each plot function, adjusts layout, and saves as sensor_analysis.png
-# at 150 DPI with tight bounding box.
+# Create main() that generates data, creates a 2x2 subplot figure,
+# calls each plot function, leaves the fourth panel empty, adjusts layout,
+# and saves as sensor_analysis.png at 150 DPI with tight bounding box.
 
 
 def main():
-    """Generate sensor data and save the three-panel analysis figure.
+    """Generate sensor data and save the four-panel analysis figure.
 
     Parameters
     ----------
@@ -151,10 +151,11 @@ def main():
     seed = 1873
     sensor_a, sensor_b, timestamps = generate_data(seed)
 
-    figure, axes = plt.subplots(1, 3, figsize=(15, 5))
-    plot_scatter(sensor_a, sensor_b, timestamps, axes[0])
-    plot_histogram(sensor_a, sensor_b, axes[1])
-    plot_boxplot(sensor_a, sensor_b, axes[2])
+    figure, axes = plt.subplots(2, 2, figsize=(15, 10))
+    plot_scatter(sensor_a, sensor_b, timestamps, axes[0, 0])
+    plot_histogram(sensor_a, sensor_b, axes[0, 1])
+    plot_boxplot(sensor_a, sensor_b, axes[1, 0])
+    axes[1, 1].axis('off')
     figure.tight_layout()
     figure.savefig('sensor_analysis.png', dpi=150, bbox_inches='tight')
 
