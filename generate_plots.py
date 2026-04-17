@@ -15,6 +15,7 @@ Usage
 # Use NumPy-style docstring with Parameters and Returns sections.
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def generate_data(seed):
@@ -72,6 +73,10 @@ def plot_scatter(sensor_a, sensor_b, timestamps, ax):
     ax.set_title('Sensor Temperature Scatter Plot')
     ax.legend()
 
+# Create plot_histogram(sensor_a, sensor_b, ax) that draws an overlaid 
+# histogram with 30 bins and alpha=0.5 for transparency. Add vertical 
+# dashed lines at each sensor's mean. NumPy-style docstring. 
+# Modifies ax in place, returns None.
 
 def plot_histogram(sensor_a, sensor_b, ax):
     """Plot overlaid histograms for the two sensor data sets.
@@ -98,4 +103,62 @@ def plot_histogram(sensor_a, sensor_b, ax):
     ax.set_ylabel('Count')
     ax.set_title('Histogram of Sensor Temperatures')
     ax.legend()
+
+
+def plot_boxplot(sensor_a, sensor_b, ax):
+    """Plot side-by-side box plots for the two sensor data sets.
+
+    Parameters
+    ----------
+    sensor_a : numpy.ndarray
+        Array of 200 temperature readings for Sensor A in Celsius.
+    sensor_b : numpy.ndarray
+        Array of 200 temperature readings for Sensor B in Celsius.
+    ax : matplotlib.axes.Axes
+        Axes object to modify in place.
+
+    Returns
+    -------
+    None
+        This function modifies ax in place and returns None.
+    """
+    combined_mean = np.mean(np.concatenate([sensor_a, sensor_b]))
+
+    ax.boxplot([sensor_a, sensor_b], labels=['Sensor A', 'Sensor B'])
+    ax.axhline(combined_mean, color='black', linestyle='--', linewidth=2, label='Overall mean')
+    ax.set_ylabel('Temperature (deg C)')
+    ax.set_title('Sensor Temperature Box Plot')
+    ax.legend()
+
+# Create main() that generates data, creates a 1x3 subplot figure,
+# calls each plot function, adjusts layout, and saves as sensor_analysis.png
+# at 150 DPI with tight bounding box.
+
+
+def main():
+    """Generate sensor data and save the three-panel analysis figure.
+
+    Parameters
+    ----------
+    None
+        This function takes no arguments.
+
+    Returns
+    -------
+    None
+        This function writes sensor_analysis.png and returns None.
+    """
+    seed = 1873
+    sensor_a, sensor_b, timestamps = generate_data(seed)
+
+    figure, axes = plt.subplots(1, 3, figsize=(15, 5))
+    plot_scatter(sensor_a, sensor_b, timestamps, axes[0])
+    plot_histogram(sensor_a, sensor_b, axes[1])
+    plot_boxplot(sensor_a, sensor_b, axes[2])
+    figure.tight_layout()
+    figure.savefig('sensor_analysis.png', dpi=150, bbox_inches='tight')
+
+
+if __name__ == '__main__':
+    main()
 
